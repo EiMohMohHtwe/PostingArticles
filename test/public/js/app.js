@@ -1,3 +1,6 @@
+$('.post').find('.interaction').find('a').eq(2).on('click',function(){
+  $('#edit-modal').modal();
+});
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};

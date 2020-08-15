@@ -53,3 +53,14 @@ Route::post('/postCreatePost', [
     'as' => 'post.create',
     'middleware' => 'auth'
 ]);
+
+//Route::get('/editpost','PostController@create');
+
+Route::get('/editpost/{post}/edit','PostController@edit')->name('dashboard.edit');
+Route::patch('/editpost/{post}','PostController@update')->name('dashboard.update');
+
+Route::get("/comment",'CommentController@index');
+Route::post('/comment','CommentController@store')->name('comment.create');
+
+
+

@@ -20,9 +20,11 @@ class PostController extends Controller
     public function postCreatePost(Request $request)
     {
         $this->validate($request, [
+            'title' => 'required|max:100',
             'body' => 'required|max:1000'
         ]);
         $post = new Post();
+        $post->title = $request['title'];
         $post->body = $request['body'];
         $message = 'There was an error';
         if ($request->user()->posts()->save($post)) {
@@ -45,6 +47,15 @@ class PostController extends Controller
         $users->save();
 
         return redirect()->back();
+    }
+
+    public function create() {
+        return view('articles.create');
+    }
+
+    public function show(Post $post)
+    {
+        return view('articles.show', compact('post'));
     }
 
     public function edit(Post $post)

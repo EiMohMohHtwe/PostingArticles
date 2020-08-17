@@ -38,13 +38,19 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $post)
     {
-        $comment=new Comment();
-        $comment->fill($request->all());
-        $comment->save();
+       //dd($post, auth()->user()->id);
+       //dd($request->all());
 
-        return back();
+       $comment = new Comment();
+       $comment->comment = $request['comment'];
+       $comment->user_id = auth()->user()->id;
+       $comment->post_id = $post;
+
+       $comment->save();
+
+       return redirect()->back();
 
     
     }

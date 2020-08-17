@@ -38,10 +38,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get("/dashboard",'RegisterController@create');
-
-//Route::post('/createpost','PostController@postCreatePost');
-
 Route::get('/dashboard', [
     'uses' => 'PostController@getDashboard',
     'as' => 'dashboard',
@@ -55,12 +51,22 @@ Route::post('/postCreatePost', [
 ]);
 
 //Route::get('/editpost','PostController@create');
+Route::get('/comment', [
+    'uses' => 'CommentController@index',
+    'as' => 'comment',
+    'middleware' => 'auth'
+]);
 
+
+Route::get('posts/create', 'PostController@create')->name('posts.create');
+Route::get('posts/{post}', 'PostController@show')->name('posts.show');
 Route::get('/editpost/{post}/edit','PostController@edit')->name('dashboard.edit');
 Route::patch('/editpost/{post}','PostController@update')->name('dashboard.update');
 
+Route::post('posts/{post}/comment', 'CommentController@store')->name('comments.store');
+
 Route::get("/comment",'CommentController@index');
-Route::post('/comment','CommentController@store')->name('comment.create');
+Route::post('/comment','CommentController@store')->name('comment.store');
 
 
 

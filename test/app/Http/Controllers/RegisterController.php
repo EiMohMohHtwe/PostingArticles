@@ -41,13 +41,13 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'age' => 'required',
-            'birthday' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'password' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'age' => ['required','integer'],
+            'birthday' => ['required','integer'],
+            'address' => ['required', 'string', 'max:100'],
+            'phone' => ['required','integer'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     
            $newUser=new User();
@@ -92,13 +92,13 @@ class RegisterController extends Controller
     {
 
         request()->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'age' => 'required',
-            'birthday' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'password' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'age' => ['required','integer'],
+            'birthday' => ['required','integer'],
+            'address' => ['required', 'string', 'max:100'],
+            'phone' => ['required','integer'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $users = User::find($id);

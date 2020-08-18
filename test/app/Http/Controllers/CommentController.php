@@ -19,6 +19,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::orderBy('created_at', 'desc')->get();
+
         return view('comment', ['comments' => $comments]);
     }
 
@@ -40,63 +41,12 @@ class CommentController extends Controller
      */
     public function store(Request $request, $post)
     {
-       //dd($post, auth()->user()->id);
-       //dd($request->all());
-
-       $comment = new Comment();
+        $comment = new Comment();
        $comment->comment = $request['comment'];
        $comment->user_id = auth()->user()->id;
        $comment->post_id = $post;
-
        $comment->save();
 
        return redirect()->back();
-
-    
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

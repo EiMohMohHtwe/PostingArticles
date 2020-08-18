@@ -12,9 +12,9 @@ class PostController extends Controller
 {
     public function getDashboard()
     {
-        
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('dashboard', ['posts' => $posts]);
+
+        return view('articles.dashboard', ['posts' => $posts]);
     }
 
     public function postCreatePost(Request $request)
@@ -30,23 +30,7 @@ class PostController extends Controller
         if ($request->user()->posts()->save($post)) {
             $message = 'Post successfully created!';
         }
-        return redirect()->route('dashboard')->with(['message' => $message]);
-    }
-
-   
-    public function editpost(Request $request, $id)
-    {
-
-        $this->validate($request, [
-            'body' => 'required|max:1000'
-        ]);
-
-        $posts = Post::find($id);
-
-        $posts->body = request('body');
-        $users->save();
-
-        return redirect()->back();
+        return redirect()->route('articles.dashboard')->with(['message' => $message]);
     }
 
     public function create() {
@@ -60,25 +44,19 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('editpost',compact('post'));
+        return view('editpost', compact('post'));
     }
+    
     public function update(Request $request, $id)
     {
-
         $this->validate($request, [
             'body' => 'required|max:1000'
         ]);
      
-
         $post = Post::find($id);
-
         $post->body = request('body');
-       
         $post->save();
 
         return redirect()->back();
     }
-
-   
-    
 }

@@ -50,13 +50,11 @@ Route::post('/postCreatePost', [
     'middleware' => 'auth'
 ]);
 
-//Route::get('/editpost','PostController@create');
 Route::get('/comment', [
     'uses' => 'CommentController@index',
     'as' => 'comment',
     'middleware' => 'auth'
 ]);
-
 
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::get('posts/{post}', 'PostController@show')->name('posts.show');
@@ -65,8 +63,6 @@ Route::patch('/editpost/{post}','PostController@update')->name('dashboard.update
 
 Route::post('posts/{post}/comment', 'CommentController@store')->name('comments.store');
 
-Route::get("/comment",'CommentController@index');
-Route::post('/comment','CommentController@store')->name('comment.store');
 
 
 

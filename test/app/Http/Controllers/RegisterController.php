@@ -17,7 +17,7 @@ class RegisterController extends Controller
     public function index()
     {
         $userdata = User::all()->toArray();
-        return view('profile',compact('userdata'));
+        return view('register.profile',compact('userdata'));
     }
 
     /**
@@ -27,9 +27,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('dashboard');
- 
-        
+        return view('dashboard');  
     }
 
     /**
@@ -50,13 +48,11 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     
-           $newUser=new User();
+        $newUser = new User();
+        $newUser->fill($request->all());
+        $newUser->save();
 
-           $newUser->fill($request->all());
-           $newUser->save();
-
-           return redirect()->back();
-      
+        return redirect()->back();
     }
 
     /**
@@ -78,7 +74,7 @@ class RegisterController extends Controller
      */
     public function edit(User $user)
     {
-        return view('edit',compact('user'));
+        return view('register.edit',compact('user'));
     }
 
     /**
@@ -90,7 +86,6 @@ class RegisterController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -98,31 +93,12 @@ class RegisterController extends Controller
             'birthday' => ['required','integer'],
             'address' => ['required', 'string', 'max:100'],
             'phone' => ['required','integer'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $users = User::find($id);
-
-        $users->name = request('name');
-        $users->email = request('email');
-        $users->age = request('age');
-        $users->birthday = request('birthday');
-        $users->address=request('address');
-        $users->phone=request('phone');
-        $users->password=request('password');
+        $user->fill($request->all());
         $users->save();
 
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -15,7 +15,8 @@ class ResourceController extends Controller
     public function index()
     {
         $filedata = Resource::all()->toArray();
-        return view('files.filelist',compact('filedata'));
+
+        return view('files.index', compact('filedata'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        return view("files.fileupload");
+        return view("files.create");
     }
 
     /**
@@ -36,7 +37,7 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('file')){
+        if ($request->hasFile('file')) {
             $filename = $request->file->getClientOriginalName();
             $fileurl = $request->file->store('public/images');
             $filepath = $request->file->getRealPath();
@@ -49,7 +50,14 @@ class ResourceController extends Controller
             $resource->type = $filetype;
             $resource->save();
 
-            return redirect()->route('filelist.index');  
+            return redirect()->route('filelist.index');
         }
+    }
+
+    public function show($id)
+    {
+        $resources = Resource::find($id);
+
+        return view('files.show', compact('resources'));
     }
 }

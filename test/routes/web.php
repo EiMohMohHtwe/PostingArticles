@@ -63,6 +63,8 @@ Route::patch('/editpost/{post}','PostController@update')->name('dashboard.update
 
 Route::post('posts/{post}/comment', 'CommentController@store')->name('comments.store');
 
-
+Route::get("/fileupload",'ResourceController@create');
+Route::post("/fileupload",'ResourceController@store');
+Route::get("/filelist",'ResourceController@index')->name('filelist.index');
 
 
